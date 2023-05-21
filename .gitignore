@@ -1,0 +1,13 @@
+.DS_Store
+
+node_modules
+*.log*
+.nuxt
+.nitro
+.cache
+.output
+.env
+dist
+dist-electron
+release
+**/*.db
