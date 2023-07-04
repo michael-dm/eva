@@ -1,5 +1,7 @@
 # Electron Assistant
 
+https://github.com/michael-dm/pascal/assets/26444186/8976ca25-6c14-40df-831d-403be91a4d0c
+
 Boilerplate of whisper.cpp + chatGPT + Electron.
 
 Could be extended in many ways :
