@@ -17,7 +17,7 @@ e.g. : "convert this mov to wav please"
 ## Instructions
 
 - Expose OPENAI_API_KEY env variable in your shell
-- Add required binaries to `bin` folder
+- create `bin` folder in root directory and add required binaries :
   - whisper -> main program from whisper.cpp
   - sox
   - at least one ggml whisper model (I use quantized french fine-tunes from [here](https://huggingface.co/bofenghuang/whisper-medium-cv11-french/tree/main))
