@@ -1,103 +1,63 @@
 <script setup lang="ts">
-import type { RouterInput } from '~/plugins/trpc'
+import type { Message } from '~/electron/trpc/routers'
 
 const { $trpc } = useNuxtApp()
-const { data: posts } = await useAsyncData(() => $trpc.post.getAll.query())
-const { data: msg } = useLazyAsyncData(() => $trpc.greeting.query({ name: 'world' }))
 
-watch(msg, (msg) => {
-// eslint-disable-next-line no-console
-  console.log(msg)
+const msgView = ref<HTMLElement>()
+const { y } = useScroll(msgView, { behavior: 'smooth' })
+
+const messages = reactive(new Map<string, Message>())
+messages.set('first', {
+  messageId: 'first',
+  type: 'bot',
+  text: "Je t'écoute.",
 })
 
-const showDialog = ref(false)
-const rules = [(value: string) => !!value || 'Required']
-const validator: any = ref(null)
-const form: RouterInput['post']['create'] = reactive({
-  title: '',
-  description: '',
+const loading = ref(false)
+const error = ref<Error>()
+
+const scrollDown = () => {
+  y.value = msgView.value!.scrollHeight
+}
+
+const message$ = $trpc.message.subscribe(undefined, {
+  onData(data) {
+    loading.value = false
+
+    messages.set(data.messageId, data)
+    scrollDown()
+  },
 })
-const createPost = async () => {
-  const { valid } = await validator.value.validate()
-  if (valid) {
-    const postCreated = await $trpc.post.create.mutate(form)
-    posts.value?.push(postCreated)
-    showDialog.value = false
-  }
-}
-const deletePost = async (index: number) => {
-  const id = posts.value?.[index]?.id
-  if (id)
-    await $trpc.post.delete.mutate({ id })
-  posts.value?.splice(index, 1)
-}
+
+$trpc.isLoading.subscribe(undefined, {
+  onData() {
+    loading.value = true
+    scrollDown()
+  },
+})
+
+onUnmounted(() => {
+  message$.unsubscribe()
+})
 </script>
 
 <template>
-  <section>
-    <v-col class="pa-6">
-      <v-row>
-        <v-spacer />
-        <v-btn color="primary" @click="showDialog = true">
-          Create
-        </v-btn>
-      </v-row>
-    </v-col>
-    <v-table fixed-header>
-      <thead>
-        <tr>
-          <th class="text-left">
-            Title
-          </th>
-          <th class="text-left">
-            Description
-          </th>
-          <th class="text-right">
-            Actions
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="(post, index) in posts" :key="post.id">
-          <td>{{ post.title }}</td>
-          <td>{{ post.description }}</td>
-          <td class="text-right">
-            <v-btn color="red" size="small" @click="deletePost(index)">
-              delete
-            </v-btn>
-          </td>
-        </tr>
-      </tbody>
-    </v-table>
-    <v-dialog v-model="showDialog">
-      <v-card>
-        <v-card-title>
-          <span class="text-h5">Create post</span>
-        </v-card-title>
-        <v-card-text>
-          <v-container>
-            <v-form ref="validator">
-              <v-row>
-                <v-col cols="12">
-                  <v-text-field v-model="form.title" label="Title" :rules="rules" required />
-                </v-col>
-                <v-col cols="12">
-                  <v-text-field v-model="form.description" label="Description" :rules="rules" required />
-                </v-col>
-              </v-row>
-            </v-form>
-          </v-container>
-        </v-card-text>
-        <v-card-actions>
-          <v-spacer />
-          <v-btn color="primary" variant="text" @click="showDialog = false">
-            Close
-          </v-btn>
-          <v-btn color="primary" variant="text" @click="createPost">
-            Save
-          </v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
-  </section>
+  <div ref="msgView" class="font-mono space-y-2 py-3 px-5 text-sm w-full max-h-screen overflow-x-hidden overflow-y-auto">
+    <div v-for="[_, message] of messages" :key="message.messageId" :class="message.type == 'user' ? 'text-gray-400' : 'text-gray-600'">
+      {{ message.text }}
+    </div>
+    <div v-if="loading" class="animate-pulse bg-gray-300 h-4 rounded mt-1" />
+    <div v-if="error" class="text-red-500">
+      {{ error.message }}
+    </div>
+  </div>
 </template>
+
+<style>
+body, html {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-color: rgba(255, 255, 255, 0.5);
+}
+</style>

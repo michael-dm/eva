@@ -1,43 +1,17 @@
-# Nuxt 3 Minimal Starter
+# Electron Assistant
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+Boilerplate of whisper.cpp + chatGPT + Electron.
 
-## Setup
+Could be extended in many ways :
+- add voice output with elevenlabs/Bark
+- get text selection as input
+- get file selection as input
+- use OpenAI functions to execute "tools"
+- save "memories" into Prisma db
 
-Create a `.env` file `cp .env.example .env`
+e.g. : "convert this mov to wav please"
 
-Make sure to install the dependencies:
+## Instructions
 
-```bash
-# yarn
-yarn install
-
-# npm
-npm install
-
-# pnpm
-pnpm install --shamefully-hoist
-```
-
-## Development Server
-
-Start the development server on http://localhost:3000
-
-```bash
-pnpm prisma migrate dev
-pnpm prisma generate
-pnpm run dev
-```
-
-## Production
-
-Build the application for production and package it with electron-builder
-
-```bash
-pnpm run build
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
-
-## Credits
-- https://github.com/awohletz/electron-prisma-trpc-example
+- Needs OPENAI_API_KEY env variable
+- Expect many bugs and hacks

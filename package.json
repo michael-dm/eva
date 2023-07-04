@@ -1,10 +1,11 @@
 {
-  "name": "nuxt-electron-prisma-trpc",
+  "name": "electron-assistant",
   "version": "0.0.1",
   "private": true,
-  "main": "dist-electron/electron/main.js",
+  "main": "dist-electron/main.js",
   "scripts": {
     "postinstall": "prisma generate & nuxt prepare",
+    "rebuild-speech-recorder": "electron-rebuild -f -w speech-recorder",
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "build": "nuxt generate && electron-builder",
@@ -14,22 +15,32 @@
     "lint:fix": "eslint . --fix"
   },
   "dependencies": {
-    "@prisma/client": "4.7.1",
-    "@trpc/client": "^10.4.3",
-    "@trpc/server": "^10.4.3",
-    "vuetify": "^3.0.6",
-    "zod": "^3.19.1"
+    "@prisma/client": "4.16.2",
+    "@trpc/client": "^10.33.0",
+    "@trpc/server": "^10.33.0",
+    "@unocss/reset": "^0.53.4",
+    "@vueuse/core": "^10.2.1",
+    "@vueuse/nuxt": "^10.2.1",
+    "electron-trpc": "^0.5.2",
+    "openai-streams": "^6.1.0",
+    "speech-recorder": "^2.1.0",
+    "wavefile": "^11.0.0",
+    "zod": "^3.21.4"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^0.33.1",
-    "electron": "^22.0.0",
-    "electron-builder": "^23.6.0",
-    "eslint": "^8.29.0",
-    "nuxt": "3.0.0",
-    "nuxt-electron": "^0.2.0",
-    "prisma": "4.7.1",
-    "typescript": "^4.9.3",
-    "vite-plugin-vuetify": "^1.0.1"
+    "@antfu/eslint-config": "^0.39.7",
+    "@electron/rebuild": "^3.2.13",
+    "@unocss/nuxt": "^0.53.4",
+    "electron": "^25.2.0",
+    "electron-builder": "^24.4.0",
+    "eslint": "^8.44.0",
+    "nuxt": "3.6.1",
+    "nuxt-electron": "^0.5.0",
+    "prisma": "4.16.2",
+    "tiny-typed-emitter": "^2.1.0",
+    "typescript": "^5.1.6",
+    "vite-plugin-electron": "^0.12.0",
+    "vite-plugin-electron-renderer": "^0.14.5"
   },
   "prisma": {
     "schema": "server/prisma/schema.prisma"

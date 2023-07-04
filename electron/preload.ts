@@ -1,6 +1,7 @@
-import { contextBridge, ipcRenderer } from 'electron'
-import type { IpcRequest } from '~/types/Ipc'
+import { exposeElectronTRPC } from 'electron-trpc/main'
 
-contextBridge.exposeInMainWorld('api', {
-  trpc: (req: IpcRequest) => ipcRenderer.invoke('trpc', req),
+console.log('--- preload.ts ---')
+
+process.once('loaded', async () => {
+  exposeElectronTRPC()
 })

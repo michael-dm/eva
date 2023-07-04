@@ -11,3 +11,5 @@ dist
 dist-electron
 release
 **/*.db
+
+bin
