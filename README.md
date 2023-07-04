@@ -1,6 +1,10 @@
 # Electron Assistant
 
-https://github.com/michael-dm/pascal/assets/26444186/8976ca25-6c14-40df-831d-403be91a4d0c
+
+
+https://github.com/michael-dm/eva/assets/26444186/9d0b307b-37bf-4abf-8798-84f6e6f7a9a4
+
+
 
 Boilerplate of whisper.cpp + chatGPT + Electron.
 Goal is low latency.
