@@ -23,3 +23,5 @@ e.g. : "convert this mov to wav please"
   - at least one ggml whisper model (I use quantized french fine-tunes from [here](https://huggingface.co/bofenghuang/whisper-medium-cv11-french/tree/main))
 - [Mac M1 binaries](https://www.dropbox.com/sh/ncxavljogsb6xch/AACzK0t2zWpZTT0EahDWDz-0a?dl=0) at your own risk
 - Expect many bugs and hacks
+- `pnpm i`
+- `pnpm dev`
