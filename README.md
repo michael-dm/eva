@@ -21,6 +21,7 @@ e.g. : "convert this mov to wav please"
 ## Instructions
 
 - Expose OPENAI_API_KEY env variable in your shell
+- Copy .env.sample to .env
 - create `bin` folder in root directory and add required binaries :
   - whisper -> main program from whisper.cpp
   - sox
