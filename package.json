@@ -43,6 +43,6 @@
     "vite-plugin-electron-renderer": "^0.14.5"
   },
   "prisma": {
-    "schema": "server/prisma/schema.prisma"
+    "schema": "electron/prisma/schema.prisma"
   }
 }
