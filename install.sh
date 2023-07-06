@@ -10,7 +10,7 @@ if [[ $(uname -m) != 'arm64' ]]; then
   exit 1
 fi
 
-printf "\e[1;35m*** Installing binaries for Mac M1 ***\e[0m\n\n"
+printf "\e[1;35m*** Installing binaries for Mac ***\e[0m\n\n"
 
 download_url="https://uc5fb6e8d41dd5308924ef3cf1d7.dl.dropboxusercontent.com/zip_download_get/BisNVMqxyK3Zu8VjKv7XahB3NhUTxJCsJMNlHjUBPyZgqf98PRFU7HeQaBOPFp578LopcK6HM1ttIRd4b0PIU47V4WauWfNQUxRU7c4EW1pIwg?dl=1"
 
